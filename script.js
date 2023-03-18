@@ -10,7 +10,8 @@ const leftPaddle = {
     y: canvas.height / 2 - paddleHeight / 2,
     width: paddleWidth,
     height: paddleHeight,
-    dy: 4
+    dy: 4,
+    score: 0
 };
 
 const rightPaddle = {
@@ -18,14 +19,15 @@ const rightPaddle = {
     y: canvas.height / 2 - paddleHeight / 2,
     width: paddleWidth,
     height: paddleHeight,
+    score: 0
 };
 
 const ball = {
     x: canvas.width / 2,
     y: canvas.height / 2,
     size: ballSize,
-    dx: 4,
-    dy: 4
+    dx: 4 * Math.cos(Math.PI / 6), // 30-degree angle
+    dy: 4 * Math.sin(Math.PI / 6), // 30-degree angle
 };
 
 function drawPaddle(x, y, width, height) {
@@ -38,6 +40,13 @@ function drawBall(x, y, size) {
     ctx.beginPath();
     ctx.arc(x, y, size, 0, Math.PI * 2);
     ctx.fill();
+}
+
+function drawScore() {
+    ctx.fillStyle = 'white';
+    ctx.font = '24px Arial';
+    ctx.fillText(leftPaddle.score, canvas.width / 4, 30);
+    ctx.fillText(rightPaddle.score, (3 * canvas.width) / 4, 30);
 }
 
 function updateLeftPaddleAI() {
@@ -62,9 +71,12 @@ function moveBall() {
         ball.dy *= -1;
     }
 
-    if (ball.x < 0 || ball.x + ball.size > canvas.width) {
-        ball.x = canvas.width / 2;
-        ball.y = canvas.height / 2;
+    if (ball.x < 0) {
+        rightPaddle.score++;
+        resetBall();
+    } else if (ball.x + ball.size > canvas.width) {
+        leftPaddle.score++;
+        resetBall();
     }
 
     if (ball.x < leftPaddle.x + leftPaddle.width && ball.y > leftPaddle.y && ball.y < leftPaddle.y + leftPaddle.height) {
@@ -74,6 +86,13 @@ function moveBall() {
     if (ball.x + ball.size > rightPaddle.x && ball.y > rightPaddle.y && ball.y < rightPaddle.y + rightPaddle.height) {
         ball.dx *= -1;
     }
+}
+
+function resetBall() {
+    ball.x = canvas.width / 2;
+    ball.y = canvas.height / 2;
+    ball.dx = 4 * Math.cos(Math.PI / 6);
+    ball.dy = 4 * Math.sin(Math.PI / 6);
 }
 
 function onMouseMove(event) {
@@ -95,7 +114,8 @@ function draw() {
     drawPaddle(leftPaddle.x, leftPaddle.y, leftPaddle.width, leftPaddle.height);
     drawPaddle(rightPaddle.x, rightPaddle.y, rightPaddle.width, rightPaddle.height);
     drawBall(ball.x, ball.y, ball.size);
-    
+    drawScore();
+
     updateLeftPaddleAI();
     moveBall();
 
