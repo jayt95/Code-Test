@@ -26,8 +26,8 @@ const ball = {
     x: canvas.width / 2,
     y: canvas.height / 2,
     size: ballSize,
-    dx: 4 * Math.cos(Math.PI / 6), // 30-degree angle
-    dy: 4 * Math.sin(Math.PI / 6), // 30-degree angle
+    dx: 6 * Math.cos(Math.PI / 6), // 30-degree angle
+    dy: 6 * Math.sin(Math.PI / 6), // 30-degree angle
 };
 
 function drawPaddle(x, y, width, height) {
@@ -52,7 +52,7 @@ function drawScore() {
 function updateLeftPaddleAI() {
     const paddleCenter = leftPaddle.y + leftPaddle.height / 2;
     const distanceToBall = Math.abs(ball.y - paddleCenter);
-    const randomFactor = Math.random() < 0.5; // 50% chance to follow the ball
+    const randomFactor = Math.random() < 0.2; // 20% chance to follow the ball
 
     if (distanceToBall > 10 && randomFactor) {
         if (ball.y > paddleCenter) {
