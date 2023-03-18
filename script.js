@@ -51,11 +51,17 @@ function drawScore() {
 
 function updateLeftPaddleAI() {
     const paddleCenter = leftPaddle.y + leftPaddle.height / 2;
-    if (ball.y > paddleCenter) {
-        leftPaddle.y += leftPaddle.dy;
-    } else {
-        leftPaddle.y -= leftPaddle.dy;
+    const distanceToBall = Math.abs(ball.y - paddleCenter);
+    const randomFactor = Math.random() < 0.9; // 90% chance to follow the ball
+
+    if (distanceToBall > 10 && randomFactor) {
+        if (ball.y > paddleCenter) {
+            leftPaddle.y += leftPaddle.dy;
+        } else {
+            leftPaddle.y -= leftPaddle.dy;
+        }
     }
+
     if (leftPaddle.y < 0) {
         leftPaddle.y = 0;
     } else if (leftPaddle.y + leftPaddle.height > canvas.height) {
