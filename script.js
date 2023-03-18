@@ -18,7 +18,6 @@ const rightPaddle = {
     y: canvas.height / 2 - paddleHeight / 2,
     width: paddleWidth,
     height: paddleHeight,
-    dy: 4
 };
 
 const ball = {
@@ -43,14 +42,9 @@ function drawBall(x, y, size) {
 
 function movePaddles() {
     leftPaddle.y += leftPaddle.dy;
-    rightPaddle.y -= rightPaddle.dy;
 
     if (leftPaddle.y < 0 || leftPaddle.y + leftPaddle.height > canvas.height) {
         leftPaddle.dy *= -1;
-    }
-
-    if (rightPaddle.y < 0 || rightPaddle.y + rightPaddle.height > canvas.height) {
-        rightPaddle.dy *= -1;
     }
 }
 
@@ -75,6 +69,19 @@ function moveBall() {
         ball.dx *= -1;
     }
 }
+
+function onMouseMove(event) {
+    const mouseY = event.clientY - canvas.getBoundingClientRect().top;
+    rightPaddle.y = mouseY - rightPaddle.height / 2;
+
+    if (rightPaddle.y < 0) {
+        rightPaddle.y = 0;
+    } else if (rightPaddle.y + rightPaddle.height > canvas.height) {
+        rightPaddle.y = canvas.height - rightPaddle.height;
+    }
+}
+
+canvas.addEventListener('mousemove', onMouseMove);
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
