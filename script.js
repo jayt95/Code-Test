@@ -52,7 +52,7 @@ function drawScore() {
 function updateLeftPaddleAI() {
     const paddleCenter = leftPaddle.y + leftPaddle.height / 2;
     const distanceToBall = Math.abs(ball.y - paddleCenter);
-    const randomFactor = Math.random() < 0.9; // 90% chance to follow the ball
+    const randomFactor = Math.random() < 0.5; // 50% chance to follow the ball
 
     if (distanceToBall > 10 && randomFactor) {
         if (ball.y > paddleCenter) {
