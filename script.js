@@ -52,7 +52,7 @@ function drawScore() {
 function updateLeftPaddleAI() {
     const paddleCenter = leftPaddle.y + leftPaddle.height / 2;
     const distanceToBall = Math.abs(ball.y - paddleCenter);
-    const randomFactor = Math.random() < 0.2; // 20% chance to follow the ball
+    const randomFactor = Math.random() < 0.4; // 40% chance to follow the ball
 
     if (distanceToBall > 10 && randomFactor) {
         if (ball.y > paddleCenter) {
@@ -97,8 +97,8 @@ function moveBall() {
 function resetBall() {
     ball.x = canvas.width / 2;
     ball.y = canvas.height / 2;
-    ball.dx = 4 * Math.cos(Math.PI / 6);
-    ball.dy = 4 * Math.sin(Math.PI / 6);
+    ball.dx = 6 * Math.cos(Math.PI / 6);
+    ball.dy = 6 * Math.sin(Math.PI / 6);
 }
 
 function onMouseMove(event) {
