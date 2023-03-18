@@ -206,10 +206,11 @@ function draw() {
     drawPaddle(rightPaddle.x, rightPaddle.y, rightPaddle.width, rightPaddle.height);
     drawBall(ball.x, ball.y, ball.size);
 
-    movePaddles();
+    updateLeftPaddleAI();
     moveBall();
 
     requestAnimationFrame(draw);
 }
 
 draw();
+
