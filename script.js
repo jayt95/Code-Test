@@ -78,5 +78,23 @@ function moveBall() \{\
         ball.dx *= -1;\
     \}\
 \
-    if (ball.x + ball.size > rightPaddle.x && ball.y > rightPaddle.y && ball.y < rightP\
+    if (ball.x + ball.size > rightPaddle.x && ball.y > rightPaddle.y && ball.y < rightPaddle.y + rightPaddle.height) \{\
+        ball.dx *= -1;\
+    \}\
+\}\
+\
+function draw() \{\
+    ctx.clearRect(0, 0, canvas.width, canvas.height);\
+\
+    drawPaddle(leftPaddle.x, leftPaddle.y, leftPaddle.width, leftPaddle.height);\
+    drawPaddle(rightPaddle.x, rightPaddle.y, rightPaddle.width, rightPaddle.height);\
+    drawBall(ball.x, ball.y, ball.size);\
+\
+    movePaddles();\
+    moveBall();\
+\
+    requestAnimationFrame(draw);\
+\}\
+\
+draw();\
 }
